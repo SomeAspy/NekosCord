@@ -1,0 +1,7 @@
+{
+    "name": "NekosCord",
+    "version": "1.0.0",
+    "license": "MIT",
+    "author": "SomeAspy#9999",
+    "description": "Integrates nekos.life api into powercord as commands"
+}
