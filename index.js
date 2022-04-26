@@ -1,6 +1,6 @@
 const { Plugin } = require('powercord/entities');
 const endpoints = require('./endpoints');
-const { Settings } = require('./settings.jsx');
+const Settings = require('./settings.jsx');
 
 // require sucks, just let me use import
 
@@ -41,8 +41,8 @@ module.exports = class NekosCord extends Plugin {
                             ).join(', ')}`,
                         },
                     };
-                }
-                if (this.settings.get('nsfw') && type?.nsfw) {
+                } else if (this.settings.get('nsfw') && type?.nsfw) {
+                    console.log(this.settings.get('nsfw'));
                     return {
                         send: false,
                         result: {
@@ -53,11 +53,12 @@ module.exports = class NekosCord extends Plugin {
                                 'This type is NSFW, you may enable NSFW in the settings',
                         },
                     };
+                } else {
+                    return {
+                        send: true,
+                        result: await fetchNeko(type),
+                    };
                 }
-                return {
-                    send: true,
-                    result: await fetchNeko(type),
-                };
             },
         });
     }
