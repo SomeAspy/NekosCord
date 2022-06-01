@@ -1,17 +1,10 @@
 const { Plugin } = require('powercord/entities');
 const endpoints = require('./endpoints');
-const Settings = require('./settings.jsx');
 
 // require sucks, just let me use import
 
 module.exports = class NekosCord extends Plugin {
     startPlugin() {
-        powercord.api.settings.registerSettings('nekoscord', {
-            category: this.entityID,
-            label: 'NekosCord',
-            render: Settings,
-        });
-
         async function fetchNeko(neko) {
             let out;
             await fetch(`https://nekos.life/api/v2/img/${neko}`)
@@ -39,18 +32,6 @@ module.exports = class NekosCord extends Plugin {
                             description: `Please specify one of the following: ${Object.keys(
                                 endpoints,
                             ).join(', ')}`,
-                        },
-                    };
-                } else if (this.settings.get('nsfw') && type?.nsfw) {
-                    console.log(this.settings.get('nsfw'));
-                    return {
-                        send: false,
-                        result: {
-                            type: 'rich',
-                            author: { name: 'NekosCord' },
-                            title: 'NSFW is disabled',
-                            description:
-                                'This type is NSFW, you may enable NSFW in the settings',
                         },
                     };
                 } else {
