@@ -43,4 +43,7 @@ module.exports = class NekosCord extends Plugin {
             },
         });
     }
+    pluginWillUnload() {
+        powercord.api.commands.unregisterCommand('neko');
+    }
 };
