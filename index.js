@@ -6,13 +6,9 @@ const endpoints = require('./endpoints');
 module.exports = class NekosCord extends Plugin {
     startPlugin() {
         async function fetchNeko(neko) {
-            let out;
-            await fetch(`https://nekos.life/api/v2/img/${neko}`)
+            return fetch(`https://nekos.life/api/v2/img/${neko}`)
                 .then((res) => res.json())
-                .then((res) => {
-                    out = res.url;
-                });
-            return out;
+                .then((res) => res.url);
         }
 
         powercord.api.commands.registerCommand({
